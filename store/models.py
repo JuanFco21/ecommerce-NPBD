@@ -2,7 +2,7 @@ from django.db import models
 from category.models import Category
 from django.urls import reverse
 from accounts.models import Account
-from django.db.models import Avg
+from django.db.models import Avg, Count
 
 # Create your models here.
 class Product(models.Model):
@@ -39,7 +39,6 @@ class Product(models.Model):
         return count
 
 
-
 class VariationManager(models.Manager):
     def colors(self):
         return super(VariationManager, self).filter(variation_category='color', is_active=True)
@@ -63,7 +62,7 @@ class Variation(models.Model):
     objects = VariationManager()
 
     def __str__(self):
-        return self.variation_category + ':' + self.variation_value
+        return  self.variation_category + ' : ' +self.variation_value
 
 
 class ReviewRating(models.Model):
